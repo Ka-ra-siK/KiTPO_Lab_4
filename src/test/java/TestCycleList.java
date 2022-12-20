@@ -34,7 +34,7 @@ public class TestCycleList {
             expectedList.add(userType.parseValue(0+""));
         }
         actualList.sort(userType.getTypeComparator());
-        assertEquals(expectedList,actualList);
+        assertEquals(expectedList.toString(),actualList.toString());
     }
 
     /**
@@ -49,7 +49,7 @@ public class TestCycleList {
             expectedList.add(userType.parseValue(i + ""));
         }
         actualList.sort(userType.getTypeComparator());
-        assertEquals(expectedList, actualList);
+        assertEquals(expectedList.toString(), actualList.toString());
     }
 
 
@@ -65,7 +65,7 @@ public class TestCycleList {
             expectedList.add(userType.parseValue(i + ""));
         }
         actualList.sort(userType.getTypeComparator());
-        assertEquals(expectedList, actualList);
+        assertEquals(expectedList.toString(), actualList.toString());
     }
 
     /**
@@ -84,7 +84,7 @@ public class TestCycleList {
         for (String number: numbers) {
             expectedList.add(userType.parseValue(number));
         }
-        assertEquals(expectedList, actualList);
+        assertEquals(expectedList.toString(), actualList.toString());
     }
 
     /**
@@ -103,12 +103,88 @@ public class TestCycleList {
         for (String number: numbers) {
             expectedList.add(userType.parseValue(number));
         }
-        assertEquals(expectedList, actualList);
+        assertEquals(expectedList.toString(), actualList.toString());
+    }
+
+    /**
+     * В наборе экстремальное значение находится в начале
+     */
+    @Test
+    public void sortTestSixth() {
+        ArrayList<String> numbers = new ArrayList<>(Arrays.asList("9999", "3", "1", "7", "1", "5", "2"));
+        for (String number : numbers) {
+            actualList.add(userType.parseValue(number));
+        }
+
+        actualList.sort(userType.getTypeComparator());
+
+        Collections.sort(numbers);
+        for (String number : numbers) {
+            expectedList.add(userType.parseValue(number));
+        }
+        assertEquals(actualList.toString(), expectedList.toString());
+    }
+
+    /**
+     * В наборе экстремальное значение находится в середине
+     */
+    @Test
+    public void sortTestSeventh() {
+        ArrayList<String> numbers = new ArrayList<>(Arrays.asList("7", "3", "1", "9999", "1", "5", "2"));
+        for (String number : numbers) {
+            actualList.add(userType.parseValue(number));
+        }
+
+        actualList.sort(userType.getTypeComparator());
+
+        Collections.sort(numbers);
+        for (String number : numbers) {
+            expectedList.add(userType.parseValue(number));
+        }
+        assertEquals(actualList.toString(), expectedList.toString());
+    }
+
+    /**
+     * В наборе экстремальное значение находится в конце
+     */
+    @Test
+    public void sortTestEighth() {
+        ArrayList<String> numbers = new ArrayList<>(Arrays.asList("7", "3", "1", "2", "1", "5", "9999"));
+        for (String number : numbers) {
+            actualList.add(userType.parseValue(number));
+        }
+
+        actualList.sort(userType.getTypeComparator());
+
+        Collections.sort(numbers);
+        for (String number : numbers) {
+            expectedList.add(userType.parseValue(number));
+        }
+        assertEquals(actualList.toString(), expectedList.toString());
+    }
+
+    /**
+     * В наборе несколько совпадающих экстремальных значений
+     */
+    @Test
+    public void sortTestTenth() {
+        ArrayList<String> numbers = new ArrayList<>(Arrays.asList("9999", "3", "1", "9999", "4", "5", "9999"));
+        for (String number : numbers) {
+            actualList.add(userType.parseValue(number));
+        }
+
+        actualList.sort(userType.getTypeComparator());
+
+        Collections.sort(numbers);
+        for (String number : numbers) {
+            expectedList.add(userType.parseValue(number));
+        }
+        assertEquals(actualList.toString(), expectedList.toString());
     }
 
     @Test
     public void sortPerformanceTest() {
-        for (int i = 1; i < 2000; i *= 2) {
+        for (int i = 1; i < 1025; i *= 2) {
             int n = i * 1000;
             System.out.print(n+"\t");
             CycleList cycleList = new CycleList(userType.getTypeComparator());
